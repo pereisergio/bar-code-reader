@@ -3,9 +3,8 @@ from PySide6.QtWidgets import (QMainWindow, QPushButton, QApplication,
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QClipboard
 from typing import List
-from decode_bar import DecodeBar
+from decode_bar import DecodeBar, CollectionGuide, TransferGuide
 from other_window import OtherWindow
-from linha_digitavel import LinhaDigitavel
 
 
 class MainWindow(QMainWindow):
@@ -73,11 +72,20 @@ class MainWindow(QMainWindow):
             self.label1.setText(
                 'Nenhum código de barras foi detectado na imagem.')
         else:
-            barcode_data = barcodes[0].data.decode('utf-8')
-            if len(barcode_data) == 44:
-                barcode_data = LinhaDigitavel().calcular_dac(barcode_data)
-            clipboard = QApplication.clipboard()
-            clipboard.setText(str(barcode_data.replace(' ', '')),
-                              mode=QClipboard.Mode.Clipboard)
-            self.label1.setText(
-                f'Type: {barcodes[0].type} - Code: {barcode_data}')
+            code = self.codeCovert(barcodes[0].data.decode('utf-8'))
+            self.showLabel(code)
+
+    def codeCovert(self, code: str) -> object | str:
+        if code[0] == '8' and len(code) == 44:
+            return CollectionGuide(code)
+        elif code[0] != '8' and len(code) == 44:
+            return TransferGuide(code)
+        else:
+            return code
+
+    def showLabel(self, codeConverted):
+        clipboard = QApplication.clipboard()
+        clipboard.setText(str(codeConverted),
+                          mode=QClipboard.Mode.Clipboard)
+        self.label1.setText(
+            f'Code: {repr(codeConverted)}')
