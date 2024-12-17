@@ -13,7 +13,6 @@ Este projeto implementa um **Leitor de Código de Barras e QR Code** utilizando 
 ## Bibliotecas Utilizadas:
 1. **PySide6**: Para criação da interface gráfica do usuário (GUI).
 2. **pyzbar**: Para leitura e decodificação de códigos de barras e QR Codes.
-3. **OpenCV** (opcional): Para captura de vídeo em tempo real via câmera.
 
 ## Aplicações:
 - **Leitura de Boletos e Contas**: Facilita a extração automática de códigos de barras de boletos bancários e arrecadações.
