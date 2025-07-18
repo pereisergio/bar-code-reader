@@ -19,11 +19,11 @@ class DecodeBar:
 
 class LineCode(ABC):
     @abstractmethod
-    def calc_modulo10(self, field: str):
+    def calc_modulo10(self, field: str) -> str:
         pass
 
     @abstractmethod
-    def calc_modulo11(self, field: str):
+    def calc_modulo11(self, field: str) -> str:
         pass
 
     @abstractmethod
@@ -99,7 +99,8 @@ class CollectionGuide(LineCode):
         else:
             return lambda x: 'Error'
 
-    def calc_modulo10(self, sequencia: str) -> str:
+    def calc_modulo10(self, field: str) -> str:
+        sequencia = field
         multiplicador_atual = 2
         soma = 0
 
@@ -117,7 +118,8 @@ class CollectionGuide(LineCode):
             return str(resto_divisao)
         return str(10 - resto_divisao)
 
-    def calc_modulo11(self, sequencia: str) -> str:
+    def calc_modulo11(self, field: str) -> str:
+        sequencia = field
         multiplicador_atual = 2
         soma = 0
 
@@ -221,7 +223,8 @@ class TransferGuide(LineCode):
         else:
             return datetime.strptime('07/10/1997', '%d/%m/%Y').date()
 
-    def calc_modulo10(self, sequencia: str) -> str:
+    def calc_modulo10(self, field: str) -> str:
+        sequencia = field
         multiplicador_atual = 2
         soma = 0
 
@@ -241,7 +244,8 @@ class TransferGuide(LineCode):
             digito_verificador = 0
         return str(digito_verificador)[-1]
 
-    def calc_modulo11(self, sequencia: str) -> str:
+    def calc_modulo11(self, field: str) -> str:
+        sequencia = field
         multiplicador_atual = 2
         soma = 0
 
