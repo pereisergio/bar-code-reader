@@ -1,0 +1,124 @@
+[project]
+name = "bar_code_reader"
+version = "1.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Sergio Pereira Junior", email = "sergio.junior@capgemini.com" },
+]
+requires-python = ">=3.13"
+dependencies = ["pillow>=11.3.0", "pyside6>=6.9.1", "pyzbar>=0.1.9"]
+
+[project.scripts]
+open = "leitor_codigo_de_barras.main:main"
+
+[dependency-groups]
+dev = [
+    "pyinstaller>=6.14.2",
+    "pyright>=1.1.403",
+    "pytest>=8.4.1",
+    "ruff>=0.12.3",
+]
+
+# ============================
+# Lint e formatação (Ruff)
+# ============================
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+fix = true
+show-fixes = true
+indent-width = 4
+exclude = ["venv", ".venv", "env", ".env", "node_modules", "__pycache__"]
+
+[tool.ruff.lint]
+select = [
+    "ASYNC",
+    "A",
+    "ANN",
+    "B",
+    "BLE",
+    "C4",
+    "C90",
+    "COM",
+    "E",
+    "EM",
+    "ERA",
+    "EXE",
+    "F",
+    "FBT",
+    "FIX",
+    "I",
+    "ICN",
+    "ISC",
+    "Q",
+    "RET",
+    "RSE",
+    "S",
+    "SIM",
+    "SLF",
+    "T10",
+    "T20",
+    "TC",
+    "TD",
+    "TRY",
+    "UP",
+    "W",
+    "YTT",
+    "RUF",
+    "N",
+]
+ignore = ["T201", "COM812"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["ANN201", "S101"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+
+[tool.ruff.lint.isort]
+known-first-party = ["bar_code_reader"]
+
+# ============================
+# Tipagem (Pyright)
+# ============================
+[tool.pyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.13"
+include = ["src", 'tests']
+exclude = [
+    "**/venv",
+    "**/.venv",
+    "**/env",
+    "**/.env",
+    "**/node_modules",
+    "**/__pycache__",
+]
+venv = ".venv"
+venvPath = "."
+executionEnvironments = [{ root = "src" }]
+
+# ============================
+# Testes (Pytest)
+# ============================
+[tool.pytest.ini_options]
+addopts = "-s --color=yes --tb=short"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+
+# ============================
+# Build e Setuptools
+# ============================
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
