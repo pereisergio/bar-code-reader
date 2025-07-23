@@ -25,7 +25,7 @@ def main() -> None:
 
     if sys.platform.startswith("win"):
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-            "capgemini.codebar.version.1.0"
+            "codebar.version.1.0"
         )
 
     window.show()
